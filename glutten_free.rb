@@ -43,12 +43,10 @@ attr_accessor :stomach, :allergies
 		rescue AllergyError => err
 			puts "#{err}"
 			@stomach += food 
-			allergies_free = @stomach - @allergies
-			puts "you have #{allergies_free.join(", ")} in your stomach"
+			@stomach -= @allergies
+			puts "you have #{@stomach.join(", ")} in your stomach"
 			puts
 		end
-		@stomach = []
-		binding.pry
 	end
 
 end
@@ -66,9 +64,6 @@ chris.eat(water)  #should cause error because he's allergic to glutten (allergy 
 
 beth = Person.new([],["scallopss"])
 beth.eat(pan_seared_scallops)
-
-
-
 
 
 # When a person attempts to eat a food they are allergic to, raise a custom exception
