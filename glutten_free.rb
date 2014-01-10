@@ -24,7 +24,7 @@ require 'pry'
 class Person
 attr_accessor :stomach, :allergies
 
-	def initialize(stomach=[], allergies=[]) #syntax error on initialize
+	def initialize(stomach = [], allergies=[]) #syntax error on initialize
 		@stomach = stomach
 		@allergies = allergies
 	end
@@ -32,12 +32,15 @@ attr_accessor :stomach, :allergies
 	def eat(food)
 		
 		if (food & @allergies) != []
+			@stomach += food 
+			allergies_free = @stomach - @allergies
+			binding.pry
 			puts "Error"
+			#reject the food -> remove it from the array and then push the rest to stomach
 		else
-			stomach = @stomach.push(food)
+			@stomach += food 
 			# stomach_string = stomach.join(", ")
 			puts "you have #{stomach.join(", ")} in your stomach"
-			binding.pry
 		end
 	end
 
@@ -50,7 +53,7 @@ pizza = ["cheese", "gluten", "tomatoes"]
 pan_seared_scallops = ["scallops", "lemons", "pasta", "olive oil"]
 water = ["h", "h", "o"]
 
-chris = Person.new([], ["glutten"])
+chris = Person.new([], ["gluten"])
 chris.eat(pizza)  #should cause error because he's allergic to glutten (allergy error)
 
 beth = Person.new
