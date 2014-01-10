@@ -15,6 +15,11 @@
 # Create a method that allows the person to eat and add arrays of food to their stomachs
 # If a food array contains a known allergy reject the food.
 
+pizza = ["cheese", "gluten", "tomatoes"]
+pan_seared_scallops = ["scallops", "lemons", "pasta", "olive oil"]
+water = ["h", "h", "o"]
+
+
 class Person
 
 	def initialize(stomach=[], allergies=[]) #syntax error on initialize
@@ -22,7 +27,8 @@ class Person
 		@allergies = allergies
 	end
 
-	def eat
+	def eat(food)
+		stomach = @stomach.push(food)
 	end
 
 end
@@ -32,11 +38,11 @@ end
 # Feed them the following foods
 
 chris = Person.new
-p chris
+bether = Person.new
 
-pizza = ["cheese", "gluten", "tomatoes"]
-pan_seared_scallops = ["scallops", "lemons", "pasta", "olive oil"]
-water = ["h", "h", "o"]
+
+
+
 
 # When a person attempts to eat a food they are allergic to, raise a custom exception
 # For example:  AllergyError
