@@ -18,6 +18,8 @@
 
 require 'pry'
 
+class AllergyError < RuntimeError; end
+
 
 
 
@@ -30,18 +32,23 @@ attr_accessor :stomach, :allergies
 	end
 
 	def eat(food)
-		
-		if (food & @allergies) != []
-			@stomach += food 
-			allergies_free = @stomach - @allergies
-			binding.pry
-			puts "Error"
-			#reject the food -> remove it from the array and then push the rest to stomach
+		begin
+		if (food & @allergies) != []	
+			raise AllergyError.new("You are allergic to this food.")
 		else
 			@stomach += food 
-			# stomach_string = stomach.join(", ")
 			puts "you have #{stomach.join(", ")} in your stomach"
+			puts
 		end
+		rescue AllergyError => err
+			puts "#{err}"
+			@stomach += food 
+			allergies_free = @stomach - @allergies
+			puts "you have #{allergies_free.join(", ")} in your stomach"
+			puts
+		end
+		@stomach = []
+		binding.pry
 	end
 
 end
@@ -53,10 +60,12 @@ pizza = ["cheese", "gluten", "tomatoes"]
 pan_seared_scallops = ["scallops", "lemons", "pasta", "olive oil"]
 water = ["h", "h", "o"]
 
-chris = Person.new([], ["gluten"])
-chris.eat(pizza)  #should cause error because he's allergic to glutten (allergy error)
+chris = Person.new([], ["gluten","tomatoes"]) # find a way to get input of allergies from user
+chris.eat(pizza)
+chris.eat(water)  #should cause error because he's allergic to glutten (allergy error)
 
-beth = Person.new
+beth = Person.new([],["scallopss"])
+beth.eat(pan_seared_scallops)
 
 
 
